@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+// import Home from '../views/Home.vue';
+import vuetify from '../views/Vuetify.vue';
 
 Vue.use(VueRouter);
 
@@ -8,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: vuetify,
   },
   {
     path: '/about',
