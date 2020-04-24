@@ -1,18 +1,43 @@
 <template>
   <v-app>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-list dense>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-contact-mail</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Contact</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-app-bar
+      app
       dense
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-btn text>Главная</v-btn>
-      <v-btn text>Пирожки</v-btn>
+      <v-btn text to="/">Главная</v-btn>
+      <v-btn text to="/pirojki">Выпечка</v-btn>
       <v-menu :offset-y="offset">
       <template v-slot:activator="{ on }">
         <v-btn text
           v-on="on"
         >
-          Пельмени
+          Дропдаун про пельмени
         </v-btn>
       </template>
 
@@ -20,7 +45,6 @@
         <v-list-item
           v-for="(item, index) in items"
           :key="index"
-          @click="click"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
@@ -74,6 +98,7 @@ export default {
   },
 
   data: () => ({
+    drawer: false,
     items: [
       { title: 'Сибирские' },
       { title: 'Домашние' },
