@@ -32,6 +32,7 @@
 
       <v-btn text to="/">Главная</v-btn>
       <v-btn text to="/pirojki">Выпечка</v-btn>
+      <v-btn text to="/rest">REST test</v-btn>
       <v-btn text to="/render">Render</v-btn>
       <v-menu :offset-y="offset">
       <template v-slot:activator="{ on }">
