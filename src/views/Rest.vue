@@ -81,7 +81,7 @@
           :disabled="!valid"
           color="success"
           class="mr-4"
-          @click="updateContact(currentContact.id)"
+          @click="updateContact(currentContact)"
         >
           Submit
         </v-btn>
@@ -103,8 +103,8 @@
           <td>{{ contact.surname }}</td>
           <td>{{ contact.phone }}</td>
           <td>
-            <v-btn color="primary" @click="showContactUpdateForm(contact.id)">edit</v-btn>
-            <v-btn color="danger" @click="deleteContact(contact.id)">delete</v-btn>
+            <v-btn color="primary" @click="showContactUpdateForm(contact._id)">edit</v-btn>
+            <v-btn color="error" @click="deleteContact(contact._id)">delete</v-btn>
           </td>
         </tr>
       </table>
@@ -127,10 +127,7 @@ const myHeaders = {
 export default {
   name: 'rest',
   mounted() {
-    axios.get(`${baseURL}/api/contacts`)
-      .then((response) => {
-        this.contactList = response.data;
-      });
+    this.loadContacts();
   },
   data: () => ({
     loaded: null,
@@ -164,23 +161,47 @@ export default {
 
   }),
   methods: {
-    createContact() {
-      console.log('create new', this.newContact);
-      const data = JSON.stringify(this.newContact);
-      axios.post(`${baseURL}/api/contacts`, data, { headers: myHeaders });
-    },
     showNewContactForm() {
       this.formNewVisible = !this.formNewVisible;
     },
     showContactUpdateForm(id) {
       this.formUpdateVisible = true;
-      this.updateContact = this.contactList.find((contact) => contact.id === id);
+      const contactData = { ...this.contactList.find((contact) => contact._id === id) };
+      this.currentContact = contactData;
+    },
+    loadContacts() {
+      axios.get(`${baseURL}/api/contacts`)
+        .then((response) => {
+          this.contactList = response.data;
+        });
+    },
+    createContact() {
+      const data = JSON.stringify(this.newContact);
+      axios.post(`${baseURL}/api/contacts`, data, { headers: myHeaders })
+        .then((response) => {
+          if (response.status === 201) {
+            this.contactList.push(response.data);
+          }
+        });
+      this.formNewVisible = false;
     },
     deleteContact(id) {
-      axios.delete(`${baseURL}/api/contacts/${id}`);
+      axios.delete(`${baseURL}/api/contacts/${id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            this.contactList = this.contactList.filter((contact) => contact._id !== id);
+          }
+        });
     },
     updateContact(contact) {
-      axios.put(`${baseURL}/api/contacts/${contact.id}`, contact);
+      axios.put(`${baseURL}/api/contacts/${contact.id}`, contact)
+        .then((response) => {
+          if (response.status === 200) {
+            const idx = this.contactList.findIndex((item) => item._id === contact._id);
+            this.$set(this.contactList, idx, contact);
+          }
+        });
+      this.formUpdateVisible = false;
     },
   },
 };
