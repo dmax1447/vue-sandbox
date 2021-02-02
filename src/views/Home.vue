@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <p>home page</p>
+    <p>is user loading: {{ $wait.is('userLoader') }}</p>
   </div>
 </template>
 
