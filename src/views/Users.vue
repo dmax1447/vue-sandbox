@@ -2,8 +2,9 @@
   <div class="users">
     <h1>This is users page</h1>
     <p>is user loading: {{ $wait.is('userLoader') }}</p>
+    <p>is userListReady {{ isUserListReady }}</p>
 
-    <div v-if="!$wait.is('userLoader')" class="users">
+    <div v-if="isUserListReady" class="users">
       <table>
         <tr>
           <th>Id</th>
@@ -17,10 +18,10 @@
         </tr>
       </table>
     </div>
+    <div v-else>users not loaded</div>
 
   </div>
 </template>
-
 
 <script>
 import { mapGetters } from 'vuex';
@@ -37,6 +38,9 @@ export default {
   }),
   computed: {
     ...mapGetters(['userList']),
+    isUserListReady() {
+      return this.userList && !this.$wait.is('userLoader');
+    },
   },
   methods: {
 
