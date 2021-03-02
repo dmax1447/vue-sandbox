@@ -28,10 +28,11 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'users',
-  mounted() {
-    if (!this.userList && !this.$wait.is('userLoader')) {
-      this.$store.dispatch('loadUsers');
-    }
+  async mounted() {
+    // if (!this.userList && !this.$wait.is('userLoader')) {
+    //   this.$store.dispatch('loadUsers');
+    // }
+    await this.$store.dispatch('loadUsers');
   },
   data: () => ({
     loaded: null,
