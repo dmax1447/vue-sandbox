@@ -1,50 +1,25 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      dense
-    >
-      <v-btn text to="/">Главная</v-btn>
-      <v-btn text to="/users">Users</v-btn>
-      <v-btn text to="/pirojki">Выпечка</v-btn>
-      <v-btn text to="/rest">REST test</v-btn>
-      <v-btn text to="/render">Render</v-btn>
-      <v-menu :offset-y="offset">
-      <template v-slot:activator="{ on }">
-        <v-btn text
-          v-on="on"
-        >
-          Дропдаун
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-      <v-spacer></v-spacer>
-    </v-app-bar>
-    <v-content>
-      <v-container fluid>
-        <router-view></router-view>
-      </v-container>
-    </v-content>
-    <v-footer app>
-    </v-footer>
-  </v-app>
+  <app-layout class="layout">
+    <template #header>
+      <router-link to="/">Main</router-link>
+    </template>
+    <template #main>
+      <router-view></router-view>
+    </template>
+    <template #footer>
+      (c) copyright 2021 dmax1447
+    </template>
+  </app-layout>
 </template>
 
 <script>
+import AppLayout from './components/AppLayout.vue';
 
 export default {
   name: 'App',
 
   components: {
+    AppLayout,
   },
 
   data: () => ({
@@ -58,9 +33,7 @@ export default {
     offset: true,
   }),
   async created() {
-    // this.$wait.start('userLoader');
     await this.$store.dispatch('loadUsers');
-    // this.$wait.end('userLoader');
   },
 };
 </script>

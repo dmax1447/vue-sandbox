@@ -1,12 +1,12 @@
 <template>
-  <body>
-    <header>
+  <body class="page container">
+    <header class="page__header">
       <slot name="header"></slot>
     </header>
-    <main>
+    <main class="page__main">
       <slot name="main"></slot>
     </main>
-    <footer>
+    <footer class="page__footer">
       <slot name="footer"></slot>
     </footer>
   </body>
@@ -18,5 +18,15 @@ export default {
 };
 </script>
 <style lang="scss">
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
 
+    &__main {
+      flex-grow: 1;
+    }
+  }
 </style>
