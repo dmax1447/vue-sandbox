@@ -93,14 +93,14 @@
       <table>
         <tr>
           <th>Name</th>
-          <th>Surname</th>
+          <th>E-mail</th>
           <th>Phone</th>
           <th></th>
           <th></th>
         </tr>
-        <tr v-for="contact in contactList" :key="contact.id">
+        <tr v-for="contact in contactList" :key="contact._id">
           <td>{{ contact.name }}</td>
-          <td>{{ contact.surname }}</td>
+          <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>
           <td>
             <v-btn color="primary" @click="showContactUpdateForm(contact._id)">edit</v-btn>
