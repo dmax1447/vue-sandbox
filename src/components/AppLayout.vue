@@ -25,8 +25,15 @@ export default {
     max-width: 1440px;
     margin: 0 auto;
 
+    &__header {
+      margin-bottom: 30px;
+    }
+
     &__main {
       flex-grow: 1;
+    }
+    &__footer {
+      margin-top: 30px;
     }
   }
 </style>

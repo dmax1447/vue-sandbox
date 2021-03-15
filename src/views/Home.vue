@@ -19,6 +19,9 @@
       <li>
         <router-link to="/vuetify">Vuetify UI framework</router-link>
       </li>
+      <li>
+        <router-link to="/ui-elements">Some UI elements from different libs</router-link>
+      </li>
     </ul>
   </div>
 </template>

@@ -40,6 +40,11 @@ const routes = [
     name: 'vuetify',
     component: () => import('../views/Vuetify.vue'),
   },
+  {
+    path: '/ui-elements',
+    name: 'ui-elements',
+    component: () => import('../views/UiElements.vue'),
+  },
 ];
 
 const router = new VueRouter({
